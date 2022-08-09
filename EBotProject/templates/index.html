@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ENTERTAINMENT BOT</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="~/favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+  :root {
+  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --msger-bg: #fff;
+  --border: 2px solid #ddd;
+  --left-msg-bg:rgb(253, 251, 253);
+  --right-msg-bg:rgb(231, 106, 212);
+}
+
+html {
+  box-sizing: border-box;
+
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: var(--body-bg);
+  font-family: Oswald, Helvetica, sans-serif;
+}
+#navigation {
+  line-height:70px;
+  height:600px;
+  width:260px;
+  float:left;
+  padding:15px;
+  background-color:rgb(239, 226, 237);
+  border: 2px solid #ddd;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+  0 2px 2px rgba(0,0,0,0.18),
+  0 4px 4px rgba(0,0,0,0.18),
+  0 8px 8px rgba(0,0,0,0.18),
+  0 16px 16px rgba(0,0,0,0.18);
+}
+
+.b1, .b2, .b3, .b4, .b5 {
+  padding: 15px 80px;
+  outline: 1px solid rgb(231, 106, 212);
+}
+
+.msger {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1020px;
+  margin: 25px 10px;
+  height: calc(100%);
+  border: var(--border);
+  border-radius: 5px;
+  background: var(--msger-bg);
+  box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
+}
+.msger-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+.msger-chat::-webkit-scrollbar {
+  width: 6px;
+}
+.msger-chat::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.msger-chat::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+}
+.msg {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.msg-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  background: #ddd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+}
+.msg-bubble {
+  max-width: 450px;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--left-msg-bg);
+}
+.msg-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.msg-info-name {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.msg-info-time {
+  font-size: 0.85em;
+}
+
+.left-msg .msg-bubble {
+  border-bottom-left-radius: 0;
+}
+
+.right-msg {
+  flex-direction: row-reverse;
+}
+.right-msg .msg-bubble {
+  background: var(--right-msg-bg);
+  color: #fff;
+  border-bottom-right-radius: 0;
+}
+.right-msg .msg-img {
+  margin: 0 0 0 10px;
+}
+
+.msger-inputarea {
+  display: flex;
+  padding: 10px;
+  border-top: var(--border);
+  background-color:rgb(239, 226, 237);
+}
+.msger-inputarea * {
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 1em;
+}
+.msger-input {
+  flex: 1;
+  background-color:rgb(253, 251, 253);
+  font-family: Oswald, Helvetica, sans-serif;
+}
+.msger-send-btn {
+  margin-left: 10px;
+  background: rgb(231, 106, 212);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.23s;
+  font-family: Oswald, Helvetica, sans-serif;
+}
+.msger-send-btn:hover {
+  background: rgb(239, 226, 237);
+}
+
+.msger-chat {
+  background-image: url('E:\Desktop\sidrah proj\EBot project\i.jpg');
+  background-color: rgb(238, 187, 204);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+
+<body>
+  <!-- partial:index.partial.html -->
+<div id="navigation">
+<h3 style="text-align:center;"> AI EMOTIONS </h3>
+<button class="b1" id="Joy" style="background-color:rgb(253, 251, 253); border-style:solid; border-color:rgb(239, 226, 237);">&#128515; Happy         </button>
+<button class="b2" id="Anger" style="background-color:rgb(253, 251, 253); border-style:solid; border-color:rgb(239, 226, 237);">&#128545; Angry        </button>
+<button class="b3" id="Sadness" style="background-color:rgb(253, 251, 253); border-style:solid; border-color:rgb(239, 226, 237);">&#128532; Sad       </button>
+<button class="b4" id="Analytical" style="background-color:rgb(253, 251, 253); border-style:solid; border-color:rgb(239, 226, 237);">&#128528; Neutral</button>
+<button class="b5" id="Fear" style="background-color:rgb(253, 251, 253); border-style:solid; border-color:rgb(239, 226, 237);">&#128552; Scared       </button>
+</div>
+
+
+  <section class="msger">
+    <main class="msger-chat">
+      <div class="msg left-msg">
+        <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">EBot</div>
+            <div class="msg-info-time">Just Now</div>
+          </div>
+
+          <div class="msg-text">
+            Hi, welcome ! Go ahead and send me a message. 😄
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <form class="msger-inputarea">
+      <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
+      <button type="submit" class="msger-send-btn">Send</button>
+    </form>
+  </section>
+  <!-- partial -->
+  <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+  <script>
+
+    const msgerForm = get(".msger-inputarea");
+    const msgerInput = get(".msger-input");
+    const msgerChat = get(".msger-chat");
+
+
+    // Icons made by Freepik from www.flaticon.com
+    const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
+    const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+    const BOT_NAME = "EBot";
+    const PERSON_NAME = "You";
+
+    msgerForm.addEventListener("submit", event => {
+ event.preventDefault();
+    
+      const msgText = msgerInput.value;
+      if (!msgText) return;
+
+      appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+      msgerInput.value = "";
+      botResponse(msgText);
+
+    });
+
+    function appendMessage(name, img, side, text) {
+      //   Simple solution for small apps
+    const msgHTML=`  
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+
+  <div class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      <div class="msg-info-time">${formatDate(new Date())}</div>
+    </div>
+
+    <div class="msg-text">${text}</div>
+  </div>
+</div>
+`;
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+    }
+
+    function botResponse(rawText) {
+
+          $.ajax({
+            data:{
+             msg: rawText },
+             type:"GET",
+             url:'/get'}).done(function(data){
+if(data.rec==0){
+
+           if(data.tone==" "){
+
+             const msgText = data.txt;
+        appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+          
+}
+         else
+          {
+        
+        const msgText = data.txt;
+        appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+        highlight_but(data.tone);
+        
+
+       }}
+if(data.rec==1){
+app_recommendation(BOT_NAME, BOT_IMG, "left",data.song1,data.link1,data.song2,data.link2,data.song3,data.link3,data.song4,data.link4,data.song5,data.link5)
+
+}
+        });
+
+
+    }
+
+
+function highlight_but(tone){
+var mytone="#"+tone;
+var myelement=document.querySelector(mytone);
+myelement.style.boxShadow="0 5px 50px 0 #e76ad4 inset, 0 5px 50px 0 #e76ad4, 0 5px 50px 0 #e76ad4 inset, 0 5px 50px 0 #e76ad4";
+
+
+}
+function app_recommendation(name, img, side,s1,l1,s2,l2,s3,l3,s4,l4,s5,l5)
+{
+  const msgHTML=`    
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+
+  <div class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      <div class="msg-info-time">${formatDate(new Date())}</div>
+    </div>
+
+    <div class="msg-text"><h4>RECOMMENDATIONS</h4><br>
+      <a href=${l1} target="_blank">${s1}</a><br>
+      <a href=${l2} target="_blank">${s2}</a><br>
+      <a href=${l3} target="_blank">${s3}</a><br>
+      <a href=${l4} target="_blank">${s4}</a><br>
+      <a href=${l5} target="_blank">${s5}</a>
+
+</div>
+  </div>
+</div>
+`;
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+
+
+}
+
+    // Utils
+    function get(selector, root = document) {
+      return root.querySelector(selector);
+    }
+
+    function formatDate(date) {
+      const h = "0" + date.getHours();
+      const m = "0" + date.getMinutes();
+
+      return `${h.slice(-2)}:${m.slice(-2)}`;
+    }
+
+
+
+  </script>
+
+</body>
+
+</html>
